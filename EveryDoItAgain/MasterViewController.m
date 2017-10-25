@@ -40,8 +40,7 @@
 
 - (void)insertNewObject:(id)sender {
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    Todo *newTodo = [[Todo alloc] initWithContext:context];
-        
+    
     // If appropriate, configure the new managed object.
     
     UIAlertController* alert;
@@ -49,27 +48,26 @@
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Todo title";
-        textField.font = [UIFont systemFontOfSize:10];
-        textField.textAlignment = NSTextAlignmentCenter;
+        textField.textAlignment = NSTextAlignmentLeft;
     }];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"ToDo description";
-        textField.font = [UIFont systemFontOfSize:10];
-        textField.textAlignment = NSTextAlignmentCenter;
+        textField.textAlignment = NSTextAlignmentLeft;
     }];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Priority";
-        textField.font = [UIFont systemFontOfSize:10];
         textField.keyboardType = UIKeyboardTypeNumberPad;
-        textField.textAlignment = NSTextAlignmentCenter;
+        textField.textAlignment = NSTextAlignmentLeft;
     }];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Save"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * _Nonnull action)
                       {
+                          Todo *newTodo = [[Todo alloc] initWithContext:context];
+
                           newTodo.title = alert.textFields[0].text;
                           newTodo.todoDescription = alert.textFields[1].text;
                           newTodo.priorityNumber = [alert.textFields[2].text intValue];

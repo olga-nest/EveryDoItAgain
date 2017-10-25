@@ -17,7 +17,9 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.todo) {
-        self.detailDescriptionLabel.text = self.todo.title;
+        self.detailDescriptionLabel.text = self.todo.todoDescription;
+        self.detailTitleLabel.text = self.todo.title;
+        self.detailPriorityLabel.text = [NSString stringWithFormat:@"Priority: %i", self.todo.priorityNumber];
     }
 }
 
