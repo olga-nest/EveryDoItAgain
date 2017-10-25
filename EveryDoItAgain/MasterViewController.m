@@ -72,7 +72,16 @@
                           newTodo.todoDescription = alert.textFields[1].text;
                           newTodo.priorityNumber = [alert.textFields[2].text intValue];
                           
-                          [self.tableView reloadData];
+                          
+                          // Save the context.
+                          NSError *error = nil;
+                          if (![context save:&error]) {
+                              // Replace this implementation with code to handle the error appropriately.
+                              // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                              NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+                              abort();
+                          }
+                          
                       }]];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
@@ -82,14 +91,7 @@
     [self presentViewController:alert animated:true completion:nil];
     
     
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-        abort();
-    }
+   
 }
 
 

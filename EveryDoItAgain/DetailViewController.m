@@ -20,6 +20,7 @@
         self.detailDescriptionLabel.text = self.todo.todoDescription;
         self.detailTitleLabel.text = self.todo.title;
         self.detailPriorityLabel.text = [NSString stringWithFormat:@"Priority: %i", self.todo.priorityNumber];
+        self.navigationItem.title = self.todo.title;
     }
 }
 
