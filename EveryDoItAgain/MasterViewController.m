@@ -43,9 +43,47 @@
     Todo *newTodo = [[Todo alloc] initWithContext:context];
         
     // If appropriate, configure the new managed object.
-    //TODO:
-    // newTodo.title =;
-        
+    
+    UIAlertController* alert;
+    alert = [UIAlertController alertControllerWithTitle:@"Add new ToDo" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Todo title";
+        textField.font = [UIFont systemFontOfSize:10];
+        textField.textAlignment = NSTextAlignmentCenter;
+    }];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"ToDo description";
+        textField.font = [UIFont systemFontOfSize:10];
+        textField.textAlignment = NSTextAlignmentCenter;
+    }];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Priority";
+        textField.font = [UIFont systemFontOfSize:10];
+        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.textAlignment = NSTextAlignmentCenter;
+    }];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * _Nonnull action)
+                      {
+                          newTodo.title = alert.textFields[0].text;
+                          newTodo.todoDescription = alert.textFields[1].text;
+                          newTodo.priorityNumber = [alert.textFields[2].text intValue];
+                          
+                          [self.tableView reloadData];
+                      }]];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:nil];
+    [alert addAction: cancel];
+    [self presentViewController:alert animated:true completion:nil];
+    
+    
     // Save the context.
     NSError *error = nil;
     if (![context save:&error]) {
